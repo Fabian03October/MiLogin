@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Vista de Login -->
+    <div id="loginView" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-user-shield fa-3x text-primary mb-3"></i>
+                <h2>Iniciar Sesión</h2>
+                <p>Ingresa tus credenciales para acceder</p>
+            </div>
+            
+            <div id="errorAlert" class="alert alert-danger alert-dismissible fade show hidden" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span id="errorMessage"></span>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="email" placeholder="Correo Electrónico" required>
+                    <label for="email"><i class="fas fa-envelope me-2"></i>Correo Electrónico</label>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                    <label for="password"><i class="fas fa-lock me-2"></i>Contraseña</label>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-login">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    ¿No tienes cuenta? <a href="#" onclick="showRegisterView()">Regístrate</a>
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vista de Registro -->
+    <div id="registerView" class="login-container hidden">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                <h2>Registrarse</h2>
+                <p>Crea una nueva cuenta</p>
+            </div>
+            
+            <div id="registerErrorAlert" class="alert alert-danger alert-dismissible fade show hidden" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span id="registerErrorMessage"></span>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            
+            <form id="registerForm">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="newEmail" placeholder="Correo Electrónico" required>
+                    <label for="newEmail"><i class="fas fa-envelope me-2"></i>Correo Electrónico</label>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="newPassword" placeholder="Contraseña" required>
+                    <label for="newPassword"><i class="fas fa-lock me-2"></i>Contraseña</label>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmar Contraseña" required>
+                    <label for="confirmPassword"><i class="fas fa-lock me-2"></i>Confirmar Contraseña</label>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-login">
+                        <i class="fas fa-user-plus me-2"></i>Registrarse
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    ¿Ya tienes cuenta? <a href="#" onclick="showLoginView()">Iniciar Sesión</a>
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vista del Dashboard -->
+    <div id="dashboardView" class="dashboard hidden">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="dashboard-card">
+                        <div class="welcome-header">
+                            <h1><i class="fas fa-tachometer-alt me-3"></i>Dashboard</h1>
+                            <p class="lead">Bienvenido al panel de control</p>
+                        </div>
+                        
+                        <div class="user-info">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4><i class="fas fa-user-circle me-2"></i>Correo: <span id="displayEmail"></span></h4>
+                                    <p class="mb-0"><i class="fas fa-clock me-2"></i>Última conexión: <span id="loginTime"></span></p>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <button class="btn btn-logout" onclick="logout()">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="feature-card text-center">
+                                    <i class="fas fa-chart-line feature-icon"></i>
+                                    <h5>Estadísticas</h5>
+                                    <p>Visualiza tus métricas y análisis en tiempo real</p>
+                                    <button class="btn btn-outline-primary">Ver Estadísticas</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="feature-card text-center">
+                                    <i class="fas fa-cogs feature-icon"></i>
+                                    <h5>Configuración</h5>
+                                    <p>Personaliza tu experiencia y ajusta las preferencias</p>
+                                    <button class="btn btn-outline-primary">Configurar</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="feature-card text-center">
+                                    <i class="fas fa-users feature-icon"></i>
+                                    <h5>Usuarios</h5>
+                                    <p>Gestiona usuarios y permisos del sistema</p>
+                                    <button class="btn btn-outline-primary">Gestionar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="feature-card">
+                                    <h5><i class="fas fa-bell me-2"></i>Notificaciones Recientes</h5>
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item border-0 px-0">
+                                            <i class="fas fa-info-circle text-info me-2"></i>
+                                            Sistema actualizado correctamente
+                                        </div>
+                                        <div class="list-group-item border-0 px-0">
+                                            <i class="fas fa-check-circle text-success me-2"></i>
+                                            Backup realizado con éxito
+                                        </div>
+                                        <div class="list-group-item border-0 px-0">
+                                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                                            Mantenimiento programado
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="feature-card">
+                                    <h5><i class="fas fa-chart-pie me-2"></i>Resumen del Sistema</h5>
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <h3 class="text-primary">42</h3>
+                                            <small>Usuarios Activos</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <h3 class="text-success">98%</h3>
+                                            <small>Disponibilidad</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
