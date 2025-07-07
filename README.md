@@ -8,6 +8,7 @@ Descripción: Este proyecto implementa un sistema de autenticación con vistas d
 
 ##Estructura del Proyecto
 El proyecto está organizado de la siguiente manera:
+
 login-project/
 │
 ├── css/
